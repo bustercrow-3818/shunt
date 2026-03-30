@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cvti5gh5f4wkn" path="res://entities/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://dpvjvqb7f18pb" path="res://assets/sprites/MinifolksHumans/Outline/MiniSwordMan.png" id="2_i3pqv"]
-[ext_resource type="Script" uid="uid://b2gwes0vna74p" path="res://resources/shunts/grounded.gd" id="2_oprnr"]
+[ext_resource type="Script" uid="uid://c3tljlw7adtio" path="res://resources/shunts/unstable.gd" id="2_oprnr"]
 [ext_resource type="Script" uid="uid://cc1kwgne27dif" path="res://components/stats/health_component.gd" id="2_tjdhl"]
 [ext_resource type="Script" uid="uid://dmuo30yhewdv4" path="res://components/state_machine/classes/state_machine.gd" id="3_rfe5m"]
 [ext_resource type="Script" uid="uid://de8dnktdqp20x" path="res://components/stats/movement_component.gd" id="3_x08pd"]
@@ -19,7 +19,7 @@
 
 [sub_resource type="Resource" id="Resource_8rie4"]
 script = ExtResource("2_oprnr")
-metadata/_custom_type_script = "uid://b2gwes0vna74p"
+metadata/_custom_type_script = "uid://c3tljlw7adtio"
 
 [sub_resource type="Resource" id="Resource_x08pd"]
 script = ExtResource("2_tjdhl")
@@ -28,7 +28,6 @@ metadata/_custom_type_script = "uid://cc1kwgne27dif"
 [sub_resource type="Resource" id="Resource_dchgp"]
 script = ExtResource("3_x08pd")
 move_speed = 135.0
-acceleration = 10.0
 jump_speed = 250.0
 maximum_jumps = 10
 metadata/_custom_type_script = "uid://de8dnktdqp20x"
@@ -487,7 +486,7 @@ animations = [{
 script = ExtResource("15_8rie4")
 projectile = ExtResource("14_oprnr")
 projectile_spacing = 6.0
-recoil_force = 500.0
+recoil_force = 250.0
 cooldown_time = 0.25
 attack_up = true
 attack_down = true

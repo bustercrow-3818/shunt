@@ -3,8 +3,10 @@ class_name MovementComponent
 
 @export_category("Horizontal Movement")
 @export var move_speed: float = 125
-@export var acceleration: float = 1
-@export var deceleration: float = 50
+@export var ground_accel: float = 15
+@export var ground_decel: float = 50
+@export var air_accel: float = 2.25
+@export var air_decel: float = 12.5
 @export var attack_slowdown_modifier: float = 0.65
 
 @export_category("Vertical Movement")

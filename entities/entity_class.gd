@@ -39,14 +39,14 @@ func recoil(_amount: float = 0, _dir: Vector2 = Vector2.ZERO) -> void:
 func horizontal_motion(_dir: float) -> void:
 	if direction.x != 0:
 		if is_on_floor():
-			velocity.x = move_toward(velocity.x, direction.x * movement.move_speed, movement.acceleration)
+			velocity.x = move_toward(velocity.x, direction.x * movement.move_speed, movement.ground_accel)
 		else:
-			velocity.x = move_toward(velocity.x, direction.x * movement.move_speed, movement.acceleration * 0.15)
+			velocity.x = move_toward(velocity.x, direction.x * movement.move_speed, movement.air_accel)
 	else:
 		if is_on_floor():
-			velocity.x = move_toward(velocity.x, 0, movement.deceleration)
+			velocity.x = move_toward(velocity.x, 0, movement.ground_decel)
 		else:
-			velocity.x = move_toward(velocity.x, 0, movement.deceleration * 0.25)
+			velocity.x = move_toward(velocity.x, 0, movement.air_decel)
 		
 	sprite_flip(direction.x)
 

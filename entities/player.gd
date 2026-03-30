@@ -6,9 +6,6 @@ class_name Player
 var current_mu: int = 0
 var shunts: Array[Shunt]
 
-func _ready() -> void:
-	initialize_entity()
-
 func initialize_entity() -> void:
 	super()
 	%hp_display.text = "HP: " + str(health.current_hp)
