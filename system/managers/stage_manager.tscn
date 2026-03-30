@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnhr14dw8mlkl"]
+
+[ext_resource type="Script" uid="uid://dhdtagcii7wks" path="res://system/managers/stage_manager.gd" id="1_bbx40"]
+[ext_resource type="PackedScene" uid="uid://cjdirgpnjmest" path="res://objects/test_room.tscn" id="2_qkpsm"]
+
+[node name="stage_manager" type="Node2D"]
+script = ExtResource("1_bbx40")
+
+[node name="test_room" parent="." instance=ExtResource("2_qkpsm")]

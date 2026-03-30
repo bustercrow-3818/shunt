@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://86pcjo6lhrgq"]
+
+[ext_resource type="Texture2D" uid="uid://blvwwcvgv7sk1" path="res://assets/sprites/MinifolksHumans/HumansProjectiles.png" id="1_3ndsa"]
+[ext_resource type="Script" uid="uid://blslrvdmsw4bx" path="res://objects/bullet.gd" id="2_xbcx7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ucnj8"]
+atlas = ExtResource("1_3ndsa")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsjgb"]
+atlas = ExtResource("1_3ndsa")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4agyf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ucnj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsjgb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ndsa"]
+radius = 3.0
+
+[node name="bullet" type="AnimatedSprite2D" node_paths=PackedStringArray("hitbox", "screen_check")]
+sprite_frames = SubResource("SpriteFrames_4agyf")
+autoplay = "default"
+frame_progress = 0.4913113
+script = ExtResource("2_xbcx7")
+speed = 750.0
+hitbox = NodePath("Area2D")
+screen_check = NodePath("screen_check")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_3ndsa")
+
+[node name="screen_check" type="VisibleOnScreenEnabler2D" parent="."]
+rect = Rect2(-5, -3, 10, 7)
