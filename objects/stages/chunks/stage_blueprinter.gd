@@ -13,6 +13,13 @@ class_name StageBlueprinter
 @export var waypoint_count: int = 1
 @export var waypoint_path_length: int = 3
 
+@export_category("Alternate Configuration")
+@export var stage_width: int = 8
+@export var stage_height: int = 4
+@export var grid_waypoints: int = 3
+@export var grid_waypoint_length: int = 3
+var base_grid: Rect2i
+
 var entry_point: Vector2i = Vector2i.ZERO
 var waypoints: Array[Vector2i]
 var exit_point: Vector2i
@@ -49,7 +56,6 @@ func initialize_new_stage() -> void:
 		else:
 			pass
 
-
 func build_path(starting_point_coords: Vector2i, end_coords: Vector2i, path_length: int = 0) -> void:
 	var remaining_path: int = path_length
 	var current_cell: Vector2i = starting_point_coords
@@ -68,3 +74,12 @@ func build_path(starting_point_coords: Vector2i, end_coords: Vector2i, path_leng
 	
 	if remaining_path > 0 and end_coords != current_cell:
 		build_path(current_cell, end_coords, remaining_path)
+
+func build_grid() -> void:
+	base_grid.position = Vector2i.ZERO
+	base_grid.size = Vector2i(stage_width, stage_height)
+	
+	var grid_entry_position: Vector2i = Vector2i(0, randi_range(0, stage_height))
+	var grid_exit_position: Vector2i = Vector2i(stage_width, randi_range(0, stage_height))
+	
+	
