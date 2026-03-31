@@ -1,9 +1,10 @@
-[gd_scene load_steps=4 format=4 uid="uid://cpbb71j7d04nc"]
+[gd_scene load_steps=5 format=3 uid="uid://bfdyv62gmg05p"]
 
-[ext_resource type="Texture2D" uid="uid://bag120rniw2u6" path="res://assets/tile sets/autotile template.png" id="1_sodsm"]
+[ext_resource type="Texture2D" uid="uid://bag120rniw2u6" path="res://assets/tile sets/autotile template.png" id="1_ofr4h"]
+[ext_resource type="Script" uid="uid://dpp4jnfl6pjjj" path="res://objects/stages/chunks/stage_blueprinter.gd" id="2_0cwbt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yv2bc"]
-texture = ExtResource("1_sodsm")
+texture = ExtResource("1_ofr4h")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -390,9 +391,7 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/1 = SubResource("TileSetAtlasSource_yv2bc")
 
-[node name="end_chunk_template" type="TileMapLayer"]
-tile_map_data = PackedByteArray("AAAPAA8AAQACAAIAAAAPAA4AAQADAAEAAAAPAA0AAQADAAEAAAAPAAwAAQADAAEAAAAPAAsAAQADAAEAAAAPAAoAAQADAAEAAAAPAAkAAQADAAEAAAAPAAgAAQADAAEAAAAPAAcAAQADAAEAAAAPAAYAAQADAAEAAAAPAAUAAQADAAEAAAAPAAQAAQADAAEAAAAPAAMAAQADAAEAAAAPAAIAAQADAAEAAAAPAAEAAQADAAEAAAAPAAAAAQADAAEAAAAOAA8AAQABAAMAAAANAA8AAQABAAMAAAAMAA8AAQABAAMAAAALAA8AAQABAAMAAAAKAA8AAQABAAMAAAAJAA8AAQABAAMAAAAIAA8AAQABAAMAAAAHAA8AAQABAAMAAAAGAA8AAQABAAMAAAAFAA8AAQABAAMAAAAEAA8AAQABAAMAAAADAA8AAQABAAMAAAACAA8AAQABAAMAAAABAA8AAQABAAMAAAAAAA8AAQAAAAIAAAAAAA4AAQADAAEAAAAAAA0AAQADAAEAAAAAAAwAAQADAAEAAAAAAAsAAQADAAEAAAAAAAoAAQADAAEAAAAAAAkAAQADAAEAAAAAAAgAAQADAAEAAAAAAAcAAQADAAEAAAAAAAYAAQADAAEAAAAAAAUAAQADAAEAAAAAAAQAAQADAAEAAAAAAAMAAQADAAEAAAAAAAIAAQADAAEAAAAAAAEAAQADAAEAAAAAAAAAAQADAAEAAAA=")
+[node name="stage_blueprinter" type="TileMapLayer"]
+position = Vector2(448, 256)
 tile_set = SubResource("TileSet_7tkte")
-
-[node name="exit_4" type="Marker2D" parent="."]
-position = Vector2(256, 0)
+script = ExtResource("2_0cwbt")
