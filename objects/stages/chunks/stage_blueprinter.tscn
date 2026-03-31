@@ -395,3 +395,4 @@ sources/1 = SubResource("TileSetAtlasSource_yv2bc")
 position = Vector2(448, 256)
 tile_set = SubResource("TileSet_7tkte")
 script = ExtResource("2_0cwbt")
+waypoint_count = 8

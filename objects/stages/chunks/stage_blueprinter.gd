@@ -1,37 +1,70 @@
 extends TileMapLayer
 class_name StageBlueprinter
 
+@export_category("Main Path")
 @export var critical_path_length: int = 5
+@export var vertical_limit: int = 3
+
+@export_category("Branch Paths")
+@export var branch_path_qty: int = 0
+@export var branch_path_max_length: int = 0
+
+@export_category("Waypoints")
+@export var waypoint_count: int = 1
+@export var waypoint_path_length: int = 3
 
 var entry_point: Vector2i = Vector2i.ZERO
+var waypoints: Array[Vector2i]
 var exit_point: Vector2i
 
 func _ready() -> void:
 	initialize_new_stage()
 
 func initialize_new_stage() -> void:
-	var x_distance: int = randi_range(0, critical_path_length)
-	var y_distance: int = critical_path_length - x_distance
 	
-	exit_point = entry_point + Vector2i(x_distance * [-1, 1].pick_random(), y_distance * [-1, 1].pick_random())
+	# Establish list of points to path through en route to exit point
+	for i in waypoint_count:
+		var y_distance: int = randi_range(0, min(waypoint_path_length, vertical_limit))
+		var x_distance: int = waypoint_path_length - y_distance
+		var new_waypoint: Vector2i
+		
+		if waypoints.is_empty():
+			waypoints.append(entry_point)
+		else:
+			new_waypoint = waypoints.back() + Vector2i(x_distance * [-1, 1].pick_random(), y_distance * [-1, 1].pick_random())
+			waypoints.append(new_waypoint)
+		
+		print("finished compiling list of waypoints: %s" % waypoints)
 	
-	set_cell(entry_point, 0)
-	
-	set_cells_terrain_connect([entry_point, exit_point], 0, 0)
+	exit_point = waypoints.back()
 
-func build_critical_path(starting_point_coords: Vector2i, x_length: int = 0, y_length: int = 0, ) -> void:
-	var remaining_path: Vector2i = Vector2i(x_length, y_length)
+	# Build the critical path
+	print("building with %s waypoints" % waypoints.size())
+	for i in waypoints:
+		var target_cell: Vector2i = waypoints[1]
+		if waypoints.size() > 1:
+			print("building path to %s" % i)
+			build_path(i, target_cell, waypoint_path_length)
+			waypoints.erase(i)
+		else:
+			pass
+
+
+func build_path(starting_point_coords: Vector2i, end_coords: Vector2i, path_length: int = 0) -> void:
+	var remaining_path: int = path_length
 	var current_cell: Vector2i = starting_point_coords
 	
-	for i in x_length + y_length:
-		
+	if randi_range(0, 1) == 1 and current_cell.x != end_coords.x:
+		current_cell.x = int(move_toward(current_cell.x, end_coords.x, 1))
+		remaining_path -= 1
+	elif current_cell.y != end_coords.y:
+		current_cell.y = int(move_toward(current_cell.y, end_coords.y, 1))
+		remaining_path -= 1
+	else:
 		pass
-	pass
-
-func decide_next_cell(current_cell_coords: Vector2i, x_max: int, y_max: int) -> Vector2i:
-	var next_cell: Vector2i
 	
-	next_cell.x = current_cell_coords.x + randi_range(0, x_max)
-	next_cell.y = current_cell_coords.y + randi_range(0, y_max)
+	print("placing tile at %s" % current_cell)
+	set_cells_terrain_connect([current_cell], 0, 0)
 	
-	return next_cell
+	if remaining_path > 0 and end_coords != current_cell:
+		build_path(current_cell, end_coords, remaining_path)
