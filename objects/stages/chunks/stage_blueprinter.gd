@@ -7,10 +7,7 @@ class_name StageBlueprinter
 @export_category("Main Path")
 @export var critical_path_length: int = 5
 @export var vertical_limit: int = 3
-
-@export_category("Waypoints")
 @export var waypoint_count: int = 1
-@export var waypoint_path_length: int = 3
 
 var entry_point: Vector2i = Vector2i.ZERO
 var waypoints: Array[Vector2i]
@@ -20,7 +17,7 @@ func _ready() -> void:
 	initialize_new_stage()
 
 func initialize_new_stage() -> void:
-	exit_point = entry_point + Vector2i(randi_range(1, critical_path_length), randi_range(1, max(critical_path_length, vertical_limit)))
+	exit_point = entry_point + Vector2i(randi_range(1, critical_path_length), randi_range(1, min(critical_path_length, vertical_limit)))
 	
 	# Establish list of points to path through en route to exit point
 	initialize_waypoints()
@@ -38,6 +35,8 @@ func initialize_waypoints() -> void:
 			waypoint_count += 1
 		else:
 			waypoints.append(new_waypoint)
+			
+	waypoints.sort()
 
 func initialize_critical_path() -> void:
 	for i in waypoints:
