@@ -395,4 +395,5 @@ sources/1 = SubResource("TileSetAtlasSource_yv2bc")
 position = Vector2(448, 256)
 tile_set = SubResource("TileSet_7tkte")
 script = ExtResource("2_0cwbt")
+critical_path_length = 8
 waypoint_count = 8
