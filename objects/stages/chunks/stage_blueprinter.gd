@@ -10,17 +10,23 @@ class_name StageBlueprinter
 @export var waypoint_count: int = 1
 
 @export_category("Chunk Settings")
-@export var chunk_size: int = 8 ## Size of sides for each square chunk
+@export var chunk_size: int = 4 ## Half the intended size of sides for each square chunk
 
 
 var entry_point: Vector2i = Vector2i.ZERO
 var waypoints: Array[Vector2i]
 var exit_point: Vector2i
 
+var chunk_coords: Array[Vector2i]
+
 func _ready() -> void:
 	initialize_new_stage()
+	%button.pressed.connect()
 
 func initialize_new_stage() -> void:
+	chunk_coords.clear()
+	waypoints.clear()
+	
 	exit_point = entry_point + Vector2i(randi_range(1, critical_path_length), randi_range(1, min(critical_path_length, vertical_limit)))
 	
 	# Establish list of points to path through en route to exit point
@@ -67,13 +73,15 @@ func build_path(starting_point_coords: Vector2i, end_coords: Vector2i) -> void:
 			pass
 		
 		set_cells_terrain_connect([current_cell], 0, 0)
+		chunk_coords.append(current_cell)
 		await get_tree().create_timer(build_delay).timeout
 
 func populate_chunks() -> void:
 	var blueprint: Array[Vector2i] = get_used_cells()
 	
 	for tile in blueprint:
-		var neighbors: Array[Vector2i] = get_cell_neighbors(tile)
+		var _neighbors: Array[Vector2i] = get_cell_neighbors(tile)
+		build_chunk(tile, _neighbors)
 		pass
 	pass
 
@@ -88,8 +96,40 @@ func get_cell_neighbors(cell_coordinates: Vector2i) -> Array[Vector2i]:
 	
 	return neighbors
 	
-func populate_room(coords: Vector2i, exits: Array[Vector2i]) -> void:
-	var corners: Array[Vector2i] = [coords + Vector2i(chunk_size, chunk_size), coords + Vector2i(-chunk_size, chunk_size), coords + Vector2i(-chunk_size, -chunk_size), coords + Vector2i(chunk_size, -chunk_size)]
+func get_door_coords(_origin_cell: Vector2i, _neighbor_cell: Vector2i) -> Array[Vector2i]:
+	var _coords: Array[Vector2i]
+	var _diff: Vector2i = _neighbor_cell - _origin_cell
+	var _direction: Vector2i = Vector2i(sign(_diff.x), sign(_diff.y))
+	
+	match _direction:
+		Vector2i.UP:
+			pass
+			
+		Vector2i.RIGHT:
+			pass
+		
+		Vector2i.DOWN:
+			pass
+		
+		Vector2i.LEFT:
+			pass
 	
 	
-	pass
+	return _coords
+	
+func build_chunk(_coords: Vector2i, _exits: Array[Vector2i]) -> void:
+	var _chunk_corners: Rect2i = Rect2i(_coords - Vector2i(chunk_size, chunk_size), Vector2i(chunk_size, chunk_size))
+	var _wall_cells: Array[Vector2i]
+	var _door_coords: Array[Vector2i]
+	
+	# Top and Bottom sides
+	for x in range(_chunk_corners.position.x, _chunk_corners.end.x):
+		_wall_cells.append(Vector2i(x, _chunk_corners.position.y)) # Top
+		_wall_cells.append(Vector2i(x, _chunk_corners.end.y - 1))  # Bottom
+		
+	# Left and Right sides (excluding corners already added)
+	for y in range(_chunk_corners.position.y + 1, _chunk_corners.end.y - 1):
+		_wall_cells.append(Vector2i(_chunk_corners.position.x, y)) # Left
+		_wall_cells.append(Vector2i(_chunk_corners.end.x - 1, y))  # Right
+	
+	set_cells_terrain_connect(_wall_cells,0, 0)

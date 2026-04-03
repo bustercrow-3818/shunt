@@ -244,3 +244,9 @@ build_delay = 0.025
 critical_path_length = 12
 vertical_limit = 6
 waypoint_count = 10
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+offset_right = 8.0
+offset_bottom = 8.0
+text = "test"
