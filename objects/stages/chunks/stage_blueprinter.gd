@@ -9,6 +9,10 @@ class_name StageBlueprinter
 @export var vertical_limit: int = 3
 @export var waypoint_count: int = 1
 
+@export_category("Chunk Settings")
+@export var chunk_size: int = 8 ## Size of sides for each square chunk
+
+
 var entry_point: Vector2i = Vector2i.ZERO
 var waypoints: Array[Vector2i]
 var exit_point: Vector2i
@@ -64,3 +68,28 @@ func build_path(starting_point_coords: Vector2i, end_coords: Vector2i) -> void:
 		
 		set_cells_terrain_connect([current_cell], 0, 0)
 		await get_tree().create_timer(build_delay).timeout
+
+func populate_chunks() -> void:
+	var blueprint: Array[Vector2i] = get_used_cells()
+	
+	for tile in blueprint:
+		var neighbors: Array[Vector2i] = get_cell_neighbors(tile)
+		pass
+	pass
+
+func get_cell_neighbors(cell_coordinates: Vector2i) -> Array[Vector2i]:
+	var neighbors: Array[Vector2i]
+	
+	for i in get_surrounding_cells(cell_coordinates):
+		if get_cell_tile_data(i) == null:
+			pass
+		else:
+			neighbors.append(i)
+	
+	return neighbors
+	
+func populate_room(coords: Vector2i, exits: Array[Vector2i]) -> void:
+	var corners: Array[Vector2i] = [coords + Vector2i(chunk_size, chunk_size), coords + Vector2i(-chunk_size, chunk_size), coords + Vector2i(-chunk_size, -chunk_size), coords + Vector2i(chunk_size, -chunk_size)]
+	
+	
+	pass
