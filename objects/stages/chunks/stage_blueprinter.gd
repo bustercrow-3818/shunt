@@ -76,13 +76,44 @@ func build_path(starting_point_coords: Vector2i, end_coords: Vector2i) -> void:
 		chunk_coords.append(current_cell)
 		await get_tree().create_timer(build_delay).timeout
 
+func get_exits(_cell: Vector2i) -> Array[Vector2i]:
+	var _exits: Array[Vector2i]
+	
+	for cell in get_surrounding_cells(_cell):
+		if get_cell_atlas_coords(cell) == Vector2i(-1, -1):
+			# Discard the coordinates if there is no cell at those neighboring coordinates
+			pass
+		else:
+			_exits.append(cell)
+	
+	return _exits
+
 func get_chunk_map() -> Blueprint:
 	var _chunk_map: Blueprint = Blueprint.new()
-	var _cells: Array[Vector2i] = get_used_cells()
-	var _exits: Array[int]
+	var _cells: Array[Vector2i]
+	var _data: Dictionary[Vector2i, int]
+	
+	for cell in get_used_cells():
+		_cells.append(cell * chunk_size * 2)
 	
 	for cell in _cells:
+		var _exit_bitmap: int = 0
 		
-		pass
+		for exit in get_exits(cell):
+			match exit:
+				Vector2(0, 0):
+					pass
+				Vector2(0, -1):
+					_exit_bitmap += 1
+				Vector2(0, 1):
+					_exit_bitmap += 2
+				Vector2(-1, 0):
+					_exit_bitmap += 4
+				Vector2(1, 0):
+					_exit_bitmap += 8
 		
+		_data[cell] = _exit_bitmap
+
+	_chunk_map.set_blueprint_data(_data)
+	
 	return _chunk_map
