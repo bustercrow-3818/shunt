@@ -77,9 +77,12 @@ func build_path(starting_point_coords: Vector2i, end_coords: Vector2i) -> void:
 		await get_tree().create_timer(build_delay).timeout
 
 func get_chunk_map() -> Blueprint:
-	var _chunk_coords: Blueprint = Blueprint.new()
+	var _chunk_map: Blueprint = Blueprint.new()
+	var _cells: Array[Vector2i] = get_used_cells()
+	var _exits: Array[int]
 	
-	for cell in get_used_cells():
-		_chunk_coords.append(cell * chunk_size - Vector2i(chunk_size, chunk_size))
+	for cell in _cells:
 		
-	return _chunk_coords
+		pass
+		
+	return _chunk_map
