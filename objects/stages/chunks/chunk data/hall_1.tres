@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ChunkData" load_steps=3 format=3 uid="uid://cd4vqmogvpelw"]
+
+[ext_resource type="Script" uid="uid://cprbf5s1bjhxg" path="res://objects/stages/chunks/data/chunk_data.gd" id="1_fagux"]
+[ext_resource type="PackedScene" uid="uid://c5boqats24k3q" path="res://objects/stages/chunks/halls/basic_hallway.tscn" id="1_jed0q"]
+
+[resource]
+script = ExtResource("1_fagux")
+chunk = ExtResource("1_jed0q")
+exit_bitmask = 12
+metadata/_custom_type_script = "uid://cprbf5s1bjhxg"

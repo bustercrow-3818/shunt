@@ -76,60 +76,10 @@ func build_path(starting_point_coords: Vector2i, end_coords: Vector2i) -> void:
 		chunk_coords.append(current_cell)
 		await get_tree().create_timer(build_delay).timeout
 
-func populate_chunks() -> void:
-	var blueprint: Array[Vector2i] = get_used_cells()
+func get_chunk_map() -> Blueprint:
+	var _chunk_coords: Blueprint = Blueprint.new()
 	
-	for tile in blueprint:
-		var _neighbors: Array[Vector2i] = get_cell_neighbors(tile)
-		build_chunk(tile, _neighbors)
-		pass
-	pass
-
-func get_cell_neighbors(cell_coordinates: Vector2i) -> Array[Vector2i]:
-	var neighbors: Array[Vector2i]
-	
-	for i in get_surrounding_cells(cell_coordinates):
-		if get_cell_tile_data(i) == null:
-			pass
-		else:
-			neighbors.append(i)
-	
-	return neighbors
-	
-func get_door_coords(_origin_cell: Vector2i, _neighbor_cell: Vector2i) -> Array[Vector2i]:
-	var _coords: Array[Vector2i]
-	var _diff: Vector2i = _neighbor_cell - _origin_cell
-	var _direction: Vector2i = Vector2i(sign(_diff.x), sign(_diff.y))
-	
-	match _direction:
-		Vector2i.UP:
-			pass
-			
-		Vector2i.RIGHT:
-			pass
+	for cell in get_used_cells():
+		_chunk_coords.append(cell * chunk_size - Vector2i(chunk_size, chunk_size))
 		
-		Vector2i.DOWN:
-			pass
-		
-		Vector2i.LEFT:
-			pass
-	
-	
-	return _coords
-	
-func build_chunk(_coords: Vector2i, _exits: Array[Vector2i]) -> void:
-	var _chunk_corners: Rect2i = Rect2i(_coords - Vector2i(chunk_size, chunk_size), Vector2i(chunk_size, chunk_size))
-	var _wall_cells: Array[Vector2i]
-	var _door_coords: Array[Vector2i]
-	
-	# Top and Bottom sides
-	for x in range(_chunk_corners.position.x, _chunk_corners.end.x):
-		_wall_cells.append(Vector2i(x, _chunk_corners.position.y)) # Top
-		_wall_cells.append(Vector2i(x, _chunk_corners.end.y - 1))  # Bottom
-		
-	# Left and Right sides (excluding corners already added)
-	for y in range(_chunk_corners.position.y + 1, _chunk_corners.end.y - 1):
-		_wall_cells.append(Vector2i(_chunk_corners.position.x, y)) # Left
-		_wall_cells.append(Vector2i(_chunk_corners.end.x - 1, y))  # Right
-	
-	set_cells_terrain_connect(_wall_cells,0, 0)
+	return _chunk_coords
