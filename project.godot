@@ -20,6 +20,10 @@ config/icon="res://assets/sprites/icon.svg"
 SignalBus="*res://signal_bus.gd"
 GlobalValues="*res://global_values.gd"
 
+[display]
+
+window/size/viewport_height=1152
+
 [input]
 
 up={
