@@ -21,13 +21,13 @@ var chunk_coords: Array[Vector2i]
 
 func _ready() -> void:
 	initialize_new_stage()
-	%button.pressed.connect()
+	%Button.pressed.connect(initialize_new_stage)
 
 func initialize_new_stage() -> void:
-	chunk_coords.clear()
-	waypoints.clear()
+	erase_path()
 	
-	exit_point = entry_point + Vector2i(randi_range(1, critical_path_length), randi_range(1, min(critical_path_length, vertical_limit)))
+	if entry_point == null:
+		entry_point = Vector2.ZERO
 	
 	# Establish list of points to path through en route to exit point
 	initialize_waypoints()
@@ -42,7 +42,7 @@ func initialize_waypoints() -> void:
 		var new_waypoint: Vector2i = Vector2i(randi_range(min(entry_point.x, exit_point.x), max(entry_point.x, exit_point.x)),randi_range(min(entry_point.y, exit_point.y), max(entry_point.y, exit_point.y)) )
 			
 		if waypoints.has(new_waypoint):
-			waypoint_count += 1
+			pass
 		else:
 			waypoints.append(new_waypoint)
 			
@@ -117,3 +117,19 @@ func get_chunk_map() -> Blueprint:
 	_chunk_map.set_blueprint_data(_data)
 	
 	return _chunk_map
+
+func erase_path() -> void:
+	chunk_coords.clear()
+	waypoints.clear()
+	
+	clear()
+	
+	randomize_entry_point()
+	randomize_exit_point()
+
+func randomize_entry_point() -> void:
+	entry_point = Vector2(0, randi_range(0, vertical_limit))
+
+func randomize_exit_point() -> void:
+	exit_point.x = randi_range(entry_point.x + 1, entry_point.x + critical_path_length)
+	exit_point.y = randi_range(0, vertical_limit)
