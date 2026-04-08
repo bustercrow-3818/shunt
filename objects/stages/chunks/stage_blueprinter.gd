@@ -101,7 +101,7 @@ func get_chunk_map() -> Blueprint:
 		var _exit_bitmap: int = 0
 		
 		for exit in get_exits(cell):
-			match exit:
+			match exit - cell:
 				Vector2i(0, 0):
 					pass
 				Vector2i(0, -1):

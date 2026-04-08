@@ -1,10 +1,38 @@
-[gd_resource type="Resource" script_class="ChunkPool" load_steps=4 format=3 uid="uid://cyouum5f5grsr"]
+[gd_resource type="Resource" script_class="ChunkPool" load_steps=12 format=3 uid="uid://cyouum5f5grsr"]
 
 [ext_resource type="Script" uid="uid://cprbf5s1bjhxg" path="res://objects/stages/chunks/data/chunk_data.gd" id="1_xuv6i"]
 [ext_resource type="Resource" uid="uid://cd4vqmogvpelw" path="res://objects/stages/chunks/chunk data/hall_1.tres" id="2_aagdk"]
 [ext_resource type="Script" uid="uid://b4a5qeqrmibup" path="res://objects/stages/chunks/data/chunk_pool.gd" id="2_bd1wp"]
+[ext_resource type="PackedScene" uid="uid://d22lgvaceh3hk" path="res://objects/stages/chunks/chunk_shapes/ends/basic_end_e.tscn" id="3_cuarl"]
+[ext_resource type="PackedScene" uid="uid://0bjxpr4gtple" path="res://objects/stages/chunks/chunk_shapes/ends/basic_end_n.tscn" id="4_xmx0y"]
+[ext_resource type="PackedScene" uid="uid://bhcrlc0fhb6c" path="res://objects/stages/chunks/chunk_shapes/ends/basic_end_s.tscn" id="5_w1aat"]
+[ext_resource type="PackedScene" uid="uid://brj0t045b4iah" path="res://objects/stages/chunks/chunk_shapes/ends/basic_end_w.tscn" id="6_gskqq"]
+
+[sub_resource type="Resource" id="Resource_cw6v8"]
+script = ExtResource("1_xuv6i")
+chunk = ExtResource("3_cuarl")
+exit_bitmask = 4
+metadata/_custom_type_script = "uid://cprbf5s1bjhxg"
+
+[sub_resource type="Resource" id="Resource_4ishb"]
+script = ExtResource("1_xuv6i")
+chunk = ExtResource("4_xmx0y")
+exit_bitmask = 1
+metadata/_custom_type_script = "uid://cprbf5s1bjhxg"
+
+[sub_resource type="Resource" id="Resource_ekccf"]
+script = ExtResource("1_xuv6i")
+chunk = ExtResource("5_w1aat")
+exit_bitmask = 2
+metadata/_custom_type_script = "uid://cprbf5s1bjhxg"
+
+[sub_resource type="Resource" id="Resource_6xgwt"]
+script = ExtResource("1_xuv6i")
+chunk = ExtResource("6_gskqq")
+exit_bitmask = 8
+metadata/_custom_type_script = "uid://cprbf5s1bjhxg"
 
 [resource]
 script = ExtResource("2_bd1wp")
-chunks = Array[ExtResource("1_xuv6i")]([ExtResource("2_aagdk")])
+chunks = Array[ExtResource("1_xuv6i")]([ExtResource("2_aagdk"), SubResource("Resource_cw6v8"), SubResource("Resource_4ishb"), SubResource("Resource_ekccf"), SubResource("Resource_6xgwt")])
 metadata/_custom_type_script = "uid://b4a5qeqrmibup"
