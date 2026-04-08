@@ -241,9 +241,9 @@ pattern_15 = SubResource("TileMapPattern_lmsnl")
 tile_set = SubResource("TileSet_7tkte")
 script = ExtResource("2_0cwbt")
 build_delay = 0.025
-critical_path_length = 12
-vertical_limit = 6
-waypoint_count = 10
+critical_path_length = 10
+vertical_limit = 4
+waypoint_count = 4
 
 [node name="Button" type="Button" parent="."]
 unique_name_in_owner = true

@@ -6,6 +6,7 @@ class_name StageBlueprinter
 
 @export_category("Main Path")
 @export var critical_path_length: int = 5
+@export var min_exit_dist: int = 2
 @export var vertical_limit: int = 3
 @export var waypoint_count: int = 1
 
@@ -39,7 +40,7 @@ func initialize_waypoints() -> void:
 	waypoints.append(entry_point)
 	
 	for i in waypoint_count:
-		var new_waypoint: Vector2i = Vector2i(randi_range(min(entry_point.x, exit_point.x), max(entry_point.x, exit_point.x)),randi_range(min(entry_point.y, exit_point.y), max(entry_point.y, exit_point.y)) )
+		var new_waypoint: Vector2i = Vector2i(randi_range(0, critical_path_length), randi_range(0, vertical_limit))
 			
 		if waypoints.has(new_waypoint):
 			pass
@@ -101,15 +102,15 @@ func get_chunk_map() -> Blueprint:
 		
 		for exit in get_exits(cell):
 			match exit:
-				Vector2(0, 0):
+				Vector2i(0, 0):
 					pass
-				Vector2(0, -1):
+				Vector2i(0, -1):
 					_exit_bitmap += 1
-				Vector2(0, 1):
+				Vector2i(0, 1):
 					_exit_bitmap += 2
-				Vector2(-1, 0):
+				Vector2i(-1, 0):
 					_exit_bitmap += 4
-				Vector2(1, 0):
+				Vector2i(1, 0):
 					_exit_bitmap += 8
 		
 		_data[cell] = _exit_bitmap
@@ -131,5 +132,5 @@ func randomize_entry_point() -> void:
 	entry_point = Vector2(0, randi_range(0, vertical_limit))
 
 func randomize_exit_point() -> void:
-	exit_point.x = randi_range(entry_point.x + 1, entry_point.x + critical_path_length)
+	exit_point.x = randi_range(entry_point.x + min(min_exit_dist, critical_path_length), entry_point.x + critical_path_length)
 	exit_point.y = randi_range(0, vertical_limit)
