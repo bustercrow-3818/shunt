@@ -22,7 +22,6 @@ var chunk_coords: Array[Vector2i]
 
 func _ready() -> void:
 	initialize_new_stage()
-	%Button.pressed.connect(initialize_new_stage)
 
 func initialize_new_stage() -> void:
 	erase_path()
@@ -94,10 +93,10 @@ func get_chunk_map() -> Blueprint:
 	var _cells: Array[Vector2i]
 	var _data: Dictionary[Vector2i, int]
 	
-	for cell in get_used_cells():
-		_cells.append(cell * chunk_size * 2)
 	
-	for cell in _cells:
+	
+	for cell in get_used_cells():
+		print("processing exits for cell at %s" % cell)
 		var _exit_bitmap: int = 0
 		
 		for exit in get_exits(cell):
@@ -109,9 +108,9 @@ func get_chunk_map() -> Blueprint:
 				Vector2i(0, 1):
 					_exit_bitmap += 2
 				Vector2i(-1, 0):
-					_exit_bitmap += 4
-				Vector2i(1, 0):
 					_exit_bitmap += 8
+				Vector2i(1, 0):
+					_exit_bitmap += 4
 		
 		_data[cell] = _exit_bitmap
 

@@ -6,3 +6,4 @@ class_name Blueprint
 
 func set_blueprint_data(_data: Dictionary[Vector2i, int]) -> void:
 	_chunk_map = _data
+	print(str(_data))
