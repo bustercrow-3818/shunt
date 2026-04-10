@@ -8,4 +8,4 @@ class_name ChunkData
 @export var chunk_size: int = 16
 
 func get_coord_offset() -> int:
-	return tile_size * chunk_size - tile_size
+	return tile_size * chunk_size
