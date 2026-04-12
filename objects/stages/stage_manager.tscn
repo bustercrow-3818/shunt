@@ -18,6 +18,9 @@ chunk_pool = ExtResource("4_4to3f")
 
 [node name="debug_list" parent="." instance=ExtResource("3_nh4wj")]
 
+[node name="Button" parent="debug_list/VBoxContainer" index="0"]
+text = "build stage"
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [editable path="debug_list"]
