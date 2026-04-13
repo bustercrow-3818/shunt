@@ -36,17 +36,21 @@ func initialize_new_stage() -> void:
 	initialize_critical_path()
 
 func initialize_waypoints() -> void:
-	waypoints.append(entry_point)
-	
 	for i in waypoint_count:
-		var new_waypoint: Vector2i = Vector2i(randi_range(0, critical_path_length), randi_range(0, vertical_limit))
+		var new_waypoint: Vector2i = Vector2i(randi_range(1, critical_path_length - 1), randi_range(0, vertical_limit))
 			
 		if waypoints.has(new_waypoint):
 			pass
 		else:
 			waypoints.append(new_waypoint)
-			
+	
 	waypoints.sort()
+
+	randomize_entry_point()
+	randomize_exit_point()
+	
+	waypoints.push_front(entry_point)
+	waypoints.append(exit_point)
 
 func initialize_critical_path() -> void:
 	for i in waypoints:
@@ -54,7 +58,9 @@ func initialize_critical_path() -> void:
 		var target_cell: Vector2i
 		
 		if index == waypoints.size() - 1:
-			pass
+			randomize_exit_point()
+			target_cell = exit_point
+			await build_path(i, target_cell)
 		else:
 			target_cell = waypoints[index + 1]
 			await build_path(i, target_cell)
@@ -96,7 +102,6 @@ func get_chunk_map() -> Blueprint:
 	
 	
 	for cell in get_used_cells():
-		print("processing exits for cell at %s" % cell)
 		var _exit_bitmap: int = 0
 		
 		for exit in get_exits(cell):
@@ -112,6 +117,11 @@ func get_chunk_map() -> Blueprint:
 				Vector2i(1, 0):
 					_exit_bitmap += 4
 		
+		if cell == entry_point:
+			_exit_bitmap += 16
+		elif cell == exit_point:
+			_exit_bitmap += 32
+		
 		_data[cell] = _exit_bitmap
 
 	_chunk_map.set_blueprint_data(_data)
@@ -123,13 +133,10 @@ func erase_path() -> void:
 	waypoints.clear()
 	
 	clear()
-	
-	randomize_entry_point()
-	randomize_exit_point()
 
 func randomize_entry_point() -> void:
-	entry_point = Vector2(0, randi_range(0, vertical_limit))
+	entry_point = Vector2(0, waypoints[0].y)
 
 func randomize_exit_point() -> void:
-	exit_point.x = randi_range(entry_point.x + min(min_exit_dist, critical_path_length), entry_point.x + critical_path_length)
-	exit_point.y = randi_range(0, vertical_limit)
+	exit_point.x = waypoints.back().x + 1
+	exit_point.y = waypoints.back().y

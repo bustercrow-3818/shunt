@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dewu14v0b8if8"]
 
-[ext_resource type="Script" uid="uid://bemc16gekw3fq" path="res://objects/stages/chunks/chunk_populator.gd" id="1_ir63o"]
+[ext_resource type="Script" uid="uid://bemc16gekw3fq" path="res://objects/stages/construction_nodes/chunk_populator.gd" id="1_ir63o"]
 
 [node name="chunk_populator" type="Node2D"]
 script = ExtResource("1_ir63o")

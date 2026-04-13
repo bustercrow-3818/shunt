@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://86pcjo6lhrgq"]
 
 [ext_resource type="Texture2D" uid="uid://blvwwcvgv7sk1" path="res://assets/sprites/MinifolksHumans/HumansProjectiles.png" id="1_3ndsa"]
-[ext_resource type="Script" uid="uid://blslrvdmsw4bx" path="res://objects/bullet.gd" id="2_xbcx7"]
+[ext_resource type="Script" uid="uid://blslrvdmsw4bx" path="res://objects/projectiles/bullet.gd" id="2_xbcx7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ucnj8"]
 atlas = ExtResource("1_3ndsa")

@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b77ov4sklikxr" path="res://components/state_machine/universal_states/jump.tscn" id="8_p4tmd"]
 [ext_resource type="PackedScene" uid="uid://cx2dxnui01gd0" path="res://components/state_machine/universal_states/walk.tscn" id="10_pxyn8"]
 [ext_resource type="Script" uid="uid://d3vauayqteobs" path="res://components/weapons/weapon_class.gd" id="12_p4tmd"]
-[ext_resource type="PackedScene" uid="uid://86pcjo6lhrgq" path="res://objects/bullet.tscn" id="13_m1p3w"]
+[ext_resource type="PackedScene" uid="uid://86pcjo6lhrgq" path="res://objects/projectiles/bullet.tscn" id="13_m1p3w"]
 [ext_resource type="Script" uid="uid://d2th1j2h6qbkb" path="res://resources/equipment/weapons/weapon_data_class.gd" id="14_fiugq"]
 
 [sub_resource type="Resource" id="Resource_hmvgi"]

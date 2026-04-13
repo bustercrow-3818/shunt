@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://c4xpg604j8dmy"]
 
-[ext_resource type="Script" uid="uid://cudwa7hga4oph" path="res://objects/stages/stage_manager.gd" id="1_20etd"]
-[ext_resource type="PackedScene" uid="uid://bfdyv62gmg05p" path="res://objects/stages/chunks/stage_blueprinter.tscn" id="1_emcy8"]
-[ext_resource type="PackedScene" uid="uid://dewu14v0b8if8" path="res://objects/stages/chunks/chunk_populator.tscn" id="2_nh4wj"]
+[ext_resource type="Script" uid="uid://cudwa7hga4oph" path="res://objects/stages/construction_nodes/stage_manager.gd" id="1_20etd"]
+[ext_resource type="PackedScene" uid="uid://bfdyv62gmg05p" path="res://objects/stages/construction_nodes/stage_blueprinter.tscn" id="1_emcy8"]
+[ext_resource type="PackedScene" uid="uid://dewu14v0b8if8" path="res://objects/stages/construction_nodes/chunk_populator.tscn" id="2_nh4wj"]
 [ext_resource type="PackedScene" uid="uid://bik3j3cfdm362" path="res://system/debug_list.tscn" id="3_nh4wj"]
 [ext_resource type="Resource" uid="uid://cyouum5f5grsr" path="res://objects/stages/chunks/chunk_pools/qc_chunks.tres" id="4_4to3f"]
 
@@ -12,6 +12,7 @@ builder = NodePath("chunk_populator")
 pathing = NodePath("stage_blueprinter")
 
 [node name="stage_blueprinter" parent="." instance=ExtResource("1_emcy8")]
+waypoint_count = 8
 
 [node name="chunk_populator" parent="." instance=ExtResource("2_nh4wj")]
 chunk_pool = ExtResource("4_4to3f")
